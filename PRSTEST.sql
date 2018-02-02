@@ -58,7 +58,8 @@ VendorPartNumber nvarchar(50) not null,
 Price decimal(20) not null, 
 Unit nvarchar(10) not null,
 PhotoPath nvarchar(255),
-VendorId int not null foreign key references Vendor(Id)
+VendorId int not null foreign key references Vendor(Id),
+Active bit not null default 1
 )
 	go
 
