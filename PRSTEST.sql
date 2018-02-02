@@ -75,7 +75,8 @@ DateNeeded datetime not null default dateadd(dd, 7, getdate()),
 DeliveryMode nvarchar(25),
 [Status] nvarchar(10) not null default 'NEW',
 Total decimal(20) not null default '0.0',
-UserId int not null foreign key references [User](Id)
+UserId int not null foreign key references [User](Id),
+Active bit not null default 1
 )
 	go
 
