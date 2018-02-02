@@ -55,7 +55,7 @@ Create table Product (
 Id int primary key identity(1,1),
 [Name] nvarchar(130) not null,
 VendorPartNumber nvarchar(50) not null,
-Price decimal(20) not null, 
+Price decimal(20,2) not null, 
 Unit nvarchar(10) not null,
 PhotoPath nvarchar(255),
 VendorId int not null foreign key references Vendor(Id),
@@ -64,7 +64,7 @@ Active bit not null default 1
 	go
 
 Insert into Product ([Name], VendorPartNumber, Price, Unit, VendorId) 
-	values ('Really Good Thing', 'AM489IZ', '500.00', '1', '1')
+	values ('Really Good Thing', 'AM489IZ', '500.00', 'Each', '1')
 go
 
 Create table PurchaseRequest (
@@ -74,8 +74,8 @@ Justification nvarchar(255),
 DateNeeded datetime not null default dateadd(dd, 7, getdate()),
 DeliveryMode nvarchar(25),
 [Status] nvarchar(10) not null default 'NEW',
-Total decimal(20) not null default '0.0',
-UserId int not null foreign key references [User](Id),
+Total decimal(20,2) not null default '0.0',
+UserId int not null foreign key references [User](Id), --Default logged in user
 Active bit not null default 1
 )
 	go
@@ -88,7 +88,8 @@ Create Table PurchaseRequestLineItem (
 Id int primary key identity(1,1),
 PurchaseRequestId int not null foreign key references PurchaseRequest(Id),
 ProductId int not null foreign key references Product(Id),
-Quantity int not null default 1
+Quantity int not null default 1,
+Active bit not null default 1
 )
 	go
 
